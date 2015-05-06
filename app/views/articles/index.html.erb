@@ -4,12 +4,22 @@
   <tr>
     <th>Otsikko</th>
     <th>Teksti</th>
+    <th>Toiminto</th>
   </tr>
  
   <% @articles.each do |article| %>
     <tr>
       <td><%= article.title %></td>
       <td><%= article.text %></td>
+      <td>
+        <%= link_to("Muokkaa", edit_article_path(article)) %>
+        <%= link_to "Poista", article_path(article), method: :delete,
+         data:
+          { confirm: 'Oletko aivan varma että haluat poistaa artikkelin "'+ article.title + '"?' }
+        %>
+      </td>
     </tr>
   <% end %>
 </table>
+
+<%= link_to "Luo uusi artiikkeli", new_article_path %>
