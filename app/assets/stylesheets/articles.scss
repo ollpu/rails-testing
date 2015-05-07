@@ -1,3 +1,27 @@
 // Place all the styles related to the articles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+span.article {
+  >h2 {
+    max-width: 50rem;
+  }
+  
+  >p.text {
+    max-width: 50rem;
+    text-align: justify;
+  }
+  
+  >hr {
+    margin-left: 0;
+    max-width: 50rem;
+  }
+  
+}
+
+a.action {
+  font-size: small;
+  margin: 0 6px;
+  padding-bottom: 12px;
+}

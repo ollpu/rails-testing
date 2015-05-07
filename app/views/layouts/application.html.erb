@@ -1,17 +1,30 @@
+<%
+  @sitetitle = "Joku hieno sivusto"
+  
+  if @title.present?
+    @headtitle = @title
+  else
+    @headtitle = @sitetitle
+  end
+%>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Testisivu</title>
+  <title><%= @headtitle %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <meta name=viewport content="width=device-width, initial-scale=1">
   <%= csrf_meta_tags %>
   <%= google_webfonts_init({
-    google: ['Open Sans']
+    google: ['Open Sans', 'Lora']
   }) %>
 </head>
 <body>
 
-<%= yield %>
+<%= render "shared/head" %>
+<div class="content">
+  <%= yield %>
+</div>
 
 </body>
 </html>

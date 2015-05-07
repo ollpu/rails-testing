@@ -1,25 +1,19 @@
-<h1>Kaikki artiikkelit</h1>
- 
-<table>
-  <tr>
-    <th>Otsikko</th>
-    <th>Teksti</th>
-    <th>Toiminto</th>
-  </tr>
- 
-  <% @articles.each do |article| %>
-    <tr>
-      <td><%= article.title %></td>
-      <td><%= article.text %></td>
-      <td>
-        <%= link_to("Muokkaa", edit_article_path(article)) %>
-        <%= link_to "Poista", article_path(article), method: :delete,
-         data:
-          { confirm: 'Oletko aivan varma että haluat poistaa artikkelin "'+ article.title + '"?' }
-        %>
-      </td>
-    </tr>
-  <% end %>
-</table>
 
-<%= link_to "Luo uusi artiikkeli", new_article_path %>
+
+<% @articles.each do |article| %>
+  <span class="article">
+    <h2><%= article.title %></h2>
+    <p class="text"><%= article.text %></p>
+    
+    <%= link_to("MUOKKAA", edit_article_path(article), { class: "action" }) %>
+    <%= link_to "POISTA", article_path(article), method: :delete, class: "action",
+     data:
+      { confirm: 'Oletko aivan varma että haluat poistaa artikkelin "'+ article.title + '"?' }
+    %>
+    <br/>
+    <hr>
+  </span>
+<% end %>
+
+<br/><br/>
+<%= link_to "LUO UUSI ARTIKKELI", new_article_path, { class: "action" } %>
