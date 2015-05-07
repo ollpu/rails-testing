@@ -21,7 +21,7 @@ class ArticlesController < ApplicationController
   end
   
   def index
-    @articles = Article.all
+    @articles = Article.all.reverse
   end
   
   def destroy
