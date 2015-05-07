@@ -1,0 +1,14 @@
+<span class="article">
+  <h2>
+    <%= link_to article.title, article_path(article), { :class => "link_title" } %>
+  </h2>
+  <p class="text"><%= article.text %></p>
+  
+  <%= link_to("MUOKKAA", edit_article_path(article), { class: "action" }) %>
+  <%= link_to "POISTA", article_path(article), method: :delete, class: "action",
+   data:
+    { confirm: 'Oletko aivan varma että haluat poistaa artikkelin "'+ article.title + '"?' }
+  %>
+  <br/>
+  <hr>
+</span>

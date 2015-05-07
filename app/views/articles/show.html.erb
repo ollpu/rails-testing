@@ -1,12 +1,4 @@
-<p>
-  <strong>Otsikko:</strong>
-  <%= @article.title %>
-</p>
- 
-<p>
-  <strong>Teksti:</strong>
-  <%= @article.text %>
-</p>
+<%= render "articles/render", :article => @article %>
 
 <br/>
-<%= link_to "Takaisin", articles_path %>
+<%= link_to "TAKAISIN", articles_path %>

@@ -4,21 +4,21 @@
 
 
 span.article {
-  >h2 {
-    max-width: 50rem;
+  > h2 > a {
+    color: black;
   }
   
   >p.text {
-    max-width: 50rem;
     text-align: justify;
   }
   
   >hr {
     margin-left: 0;
-    max-width: 50rem;
+    width: 100%;
   }
   
 }
+
 
 a.action {
   font-size: small;
