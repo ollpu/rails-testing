@@ -1,0 +1,8 @@
+<%# A partial for editing an article (form_for :article |f|, only render inside form!) %>
+  <%= f.label :title, "Otsikko:" %><br/>
+  <%= f.text_field :title %><br/>
+
+  <%= f.label :text, "Leipäteksti:" %><br/>
+  <%= f.text_area :text %><br/>
+
+  <%= f.submit "Tallenna artikkeli" %>

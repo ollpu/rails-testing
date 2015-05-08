@@ -1,16 +1,4 @@
 <h1>Uusi artikkeli</h1>
 <%= form_for :article, url: articles_path do |f| %>
-  <table>
-    <tr><td>
-      <%= f.label :title %><br/>
-      <%= f.text_field :title %>
-    </td></tr>
-    <tr><td>
-      <%= f.label :text %><br>
-      <%= f.text_area :text %>
-    </td></tr>
-    <tr><td>
-      <%= f.submit %>
-    </td></tr>
-  </table>
+  <%= render "editform", :f => f %>
 <% end %>

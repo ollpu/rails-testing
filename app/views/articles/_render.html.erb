@@ -1,14 +1,19 @@
 <span class="article">
-  <h2>
-    <%= link_to article.title, article_path(article), { :class => "link_title" } %>
+  <h2 id="article<%= article.id.to_s %>">
+    <%= link_to article.title, article, { :class => "link_title" } %>
   </h2>
   <p class="text"><%= article.text %></p>
+  &nbsp;
   
-  <%= link_to("MUOKKAA", edit_article_path(article), { class: "action" }) %>
-  <%= link_to "POISTA", article_path(article), method: :delete, class: "action",
-   data:
-    { confirm: 'Oletko aivan varma että haluat poistaa artikkelin "'+ article.title + '"?' }
-  %>
+  <span class="bottom_container">
+    <%= article.get_date %>
+    
+    <%= link_to("MUOKKAA", edit_article_path(article), { class: "action" }) %>
+    <%= link_to "POISTA", article_path(article), method: :delete, class: "action",
+     data:
+      { confirm: 'Oletko aivan varma että haluat poistaa artikkelin "'+ article.title + '"?' }
+    %>
+  </span>
   <br/>
   <hr>
 </span>

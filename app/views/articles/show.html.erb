@@ -1,4 +1,9 @@
+<h1>Katsele artikkelia
+  <%= link_to "⤶", articles_path + "#article" + @article.id.to_s %>
+</h1>
+
 <%= render "articles/render", :article => @article %>
 
 <br/>
-<%= link_to "TAKAISIN", articles_path %>
+<%# There's some fancy unicode-characters here, which might not be visible on your editor font %>
+<%= link_to "⤶ PALAA", articles_path + "#article" + @article.id.to_s %>
