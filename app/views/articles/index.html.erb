@@ -1,7 +1,7 @@
 
 
 <% @articles.each do |article| %>
-  <%= render "/articles/render", :article => article %>
+  <%= render "/articles/render", :article => article, :do_truncation => true %>
 <% end %>
 
 <br/><br/>

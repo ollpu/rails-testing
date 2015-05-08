@@ -30,6 +30,14 @@ span.bottom_container {
   font-size: small;
 }
 
+a.read_whole {
+  display: block;
+  text-align: center;
+  
+  border-top-style: dashed;
+  border-top-color: black;
+  border-top-width: 1px;
+}
 
 textarea, input[type="text"] {
   width: 99%;

@@ -2,7 +2,13 @@
   <h2 id="article<%= article.id.to_s %>">
     <%= link_to article.title, article, { :class => "link_title" } %>
   </h2>
-  <p class="text"><%= article.text %></p>
+  <p class="text"><%=
+    unless defined? do_truncation
+      article.text
+    else
+      truncate(article.text, length: 1024, separator: ' ') { link_to "Lue koko artikkeli", article, { class: "read_whole" } }
+    end
+  %></p>
   &nbsp;
   
   <span class="bottom_container">
