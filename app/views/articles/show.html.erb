@@ -1,9 +1,9 @@
 <h1>Katsele artikkelia
-  <%= link_to "&larr;".html_safe, articles_path + "#article" + @article.id.to_s %>
+  <%= link_to "&#8626;".html_safe, articles_path + "#article" + @article.id.to_s %>
 </h1>
 
 <%= render "articles/render", :article => @article %>
 
 <br/>
 
-<%= link_to "&larr; PALAA".html_safe, articles_path + "#article" + @article.id.to_s %>
+<%= link_to "&#8626; PALAA".html_safe, articles_path + "#article" + @article.id.to_s %>

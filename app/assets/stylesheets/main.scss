@@ -3,8 +3,11 @@ $titlefont: 'Lora';
 $contentwidth: 50rem;
 $contentpadding: 1rem;
 
+html { height: 100%; padding-bottom: 1px; }
+
 body {
   font-family: $bodyfont;
+  background-color: #EEE;
 }
 
 hr {
@@ -13,13 +16,14 @@ hr {
   height: 2px;
 }
 
-//Header
+//--- Header
 div.head {
   display: inline-block;
-  
+  text-align: left;
   > h1 {
     font-family: $titlefont;
     text-align: center;
+    margin-top: $contentpadding;
   }
   
   > hr {
@@ -28,9 +32,11 @@ div.head {
   
   > a {
     font-size: small;
-    margin: 0 6px;
+    margin-left: 6px;
     padding-bottom: 12px;
   }
+  
+  > a:first-of-type { margin-left: 0; }
   
   > a.thispage {
     border-bottom-style: solid;
@@ -40,21 +46,29 @@ div.head {
   
 }
 
-div.content {
-  margin-left: auto;
-  margin-right: auto;
-  padding: $contentpadding;
-  padding-top: 0;
-  max-width: $contentwidth;
+
+div.head_wrapper {
+  text-align: center;
 }
 
-@media (min-width: $contentwidth + 4rem) {
+//---
+
+div.content {
+  padding: $contentpadding;
+  padding-top: 0;
+  margin: 0 auto;
+  max-width: $contentwidth;
+  background-color: white;
+  box-shadow: 0 0 5px #888;
+}
+
+@media (min-width: $contentwidth + $contentpadding*2) {
   div.content {
-    border-style: none solid;
-    border-width: 0 1px;
-    border-color: black;
+    border-radius: 1rem;
   }
 }
+
+
 
 
 a {

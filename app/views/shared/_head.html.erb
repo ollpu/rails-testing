@@ -10,12 +10,15 @@
     return link_to text, target, { :class => thisp, :target => trg }
   end
 %>
-<div class="head">
-  <h1><%= @sitetitle %></h1>
-  <hr>
-  <%= create_pagelink "ETUSIVU", root_path, current_page?('/') %>
-  <%= create_pagelink "ARTIKKELIT", articles_path,
-    current_page?(controller: 'articles') %>
-  <%= create_pagelink "LÄHDEKOODI", "https://github.com/ollpu/rails-testing/", false, "_blank" %>
+<div class="head_wrapper">
+  <div class="head">
+    <h1><%= @sitetitle %></h1>
+    <hr>
+    <%= create_pagelink "ETUSIVU", root_path, current_page?('/') %>
+    <%= create_pagelink "ARTIKKELIT", articles_path,
+      current_page?(controller: 'articles') %>
+    <%= create_pagelink "LÄHDEKOODI &#x2197".html_safe,
+      "https://github.com/ollpu/rails-testing/", false, "_blank" %>
+  </div>
 </div>
-<%= ("<br/>"*3).html_safe %>
+<br/>
