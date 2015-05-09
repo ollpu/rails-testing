@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :comments
+  
 
   get 'hello_world/index'
 
@@ -9,8 +9,10 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'hello_world#index'
   
-  resources :articles
-
+  resources :articles do
+    resources :comments
+  end
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

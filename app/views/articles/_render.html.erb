@@ -6,7 +6,9 @@
     unless defined? do_truncation
       article.text
     else
-      truncate(article.text, length: 1024, separator: ' ') { link_to "Lue koko artikkeli", article, { class: "read_whole" } }
+      truncate(article.text, length: 1024, separator: ' ') {
+        link_to "Lue koko artikkeli", article, { class: "read_whole" }
+      }
     end
   %></p>
   &nbsp;

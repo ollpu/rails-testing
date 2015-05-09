@@ -1,13 +1,13 @@
 
 <%
-  def create_pagelink(text, target, thispage)
+  def create_pagelink(text, target, thispage = false, trg = "_self")
     if(thispage)
       thisp = "thispage"
     else
       thisp = ""
     end
     
-    return link_to text, target, { :class => thisp }
+    return link_to text, target, { :class => thisp, :target => trg }
   end
 %>
 <div class="head">
@@ -16,5 +16,6 @@
   <%= create_pagelink "ETUSIVU", root_path, current_page?('/') %>
   <%= create_pagelink "ARTIKKELIT", articles_path,
     current_page?(controller: 'articles') %>
+  <%= create_pagelink "LÄHDEKOODI", "https://github.com/ollpu/rails-testing/", false, "_blank" %>
 </div>
 <%= ("<br/>"*3).html_safe %>
