@@ -65,6 +65,8 @@ div.content {
 @media (min-width: $contentwidth + $contentpadding*2) {
   div.content {
     border-radius: 1rem;
+    margin-top: $contentpadding;
+    margin-bottom: $contentpadding * 2;
   }
 }
 
