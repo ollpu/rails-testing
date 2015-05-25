@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'hello_world#index'
   
+  resources :users
+  
   resources :articles do
     resources :comments
   end
