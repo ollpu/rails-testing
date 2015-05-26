@@ -4,7 +4,7 @@
   <table>
     <tr>
       <td>
-        <%= f.label :email "Sähköpostiosoite: " %>
+        <%= f.label :email, "Sähköpostiosoite: " %>
       </td>
       <td>
         <%= f.text_field :email %>
@@ -12,15 +12,15 @@
     </tr>
     <tr>
       <td>
-        <%= f.label :whole_name "Koko nimi: " %>
+        <%= f.label :full_name, "Koko nimi: " %>
       </td>
       <td>
-        <%= f.text_field :whole_name %>
+        <%= f.text_field :full_name %>
       </td>
     </tr>
     <tr>
       <td>
-        <%= f.label :password "Salasana: " %>
+        <%= f.label :password, "Salasana: " %>
       </td>
       <td>
         <%= f.password_field :password %>
@@ -28,12 +28,12 @@
     </tr>
     <tr>
       <td>
-        <%= f.label :password_confirmation "Vahvista salasana: " %>
+        <%= f.label :password_confirmation, "Vahvista saaalasana: " %>
       </td>
       <td>
         <%= f.password_field :password_confirmation %>
       </td>
     </tr>
   </table>
-  <%= f.submit %>
+  <%= f.submit "Rekisteröidy" %>
 <% end %>

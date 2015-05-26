@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(user_params)
-    @user.privileges = User.priv_level_user
+    @user.privileges = @user.priv_level_user
     if @user.save
       redirect_to root_url, :notice => "Uusi käyttäjä luotiin!"
     else
@@ -14,6 +14,6 @@ class UsersController < ApplicationController
   end
   
   def user_params
-    params.require(:user).permit(:email, :password, :whole_name)
+    params.require(:user).permit(:email, :password, :full_name)
   end
 end

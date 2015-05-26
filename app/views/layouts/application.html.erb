@@ -27,6 +27,9 @@
 
 <div class="content">
   <%= render "shared/head" %>
+  <% if notice.present? %>
+    <p class="notice"><%= notice %></p>
+  <% end %>
   <%= yield %>
 </div>
 

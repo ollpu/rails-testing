@@ -9,8 +9,8 @@ development:
   encoding: utf8
   database: project_development
   pool: 5
-  username:
-  password:
+  username: "psql"
+  password: "psql"
 
 test: &TEST
   adapter: postgresql

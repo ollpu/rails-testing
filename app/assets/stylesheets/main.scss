@@ -20,25 +20,25 @@ hr {
 div.head {
   display: inline-block;
   text-align: left;
-  > h1 {
+  h1 {
     font-family: $titlefont;
     text-align: center;
     margin-top: $contentpadding;
   }
   
-  > hr {
+  hr {
     margin-top: -1em;
   }
   
-  > a {
+  a {
     font-size: small;
     margin-left: 6px;
     padding-bottom: 12px;
   }
   
-  > a:first-of-type { margin-left: 0; }
+  a:first-of-type { margin-left: 0; }
   
-  > a.thispage {
+  a.thispage {
     border-bottom-style: solid;
     border-bottom-width: 2px;
     border-bottom-color: black;
@@ -60,6 +60,14 @@ div.content {
   max-width: $contentwidth;
   background-color: white;
   box-shadow: 0 0 5px #888;
+  
+  p.notice {
+    font-style: italic;
+    border-left-style: solid;
+    border-left-width: 4px;
+    border-left-color: lightgrey;
+    padding-left: 6px;
+  }
 }
 
 @media (min-width: $contentwidth + $contentpadding*2) {
