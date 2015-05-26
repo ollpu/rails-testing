@@ -1,0 +1,15 @@
+<h1>Kirjaudu sisään</h1>
+
+<%= form_tag sessions_path do %>
+  <table>
+    <tr>
+      <td><%= label_tag :email, "Sähköposti: " %></td>
+      <td><%= text_field_tag :email, params[:email] %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :password, "Salasana: " %></td>
+      <td><%= password_field_tag :password %></td>
+    </tr>
+  </table>
+  <%= submit_tag "Kirjaudu" %>
+<% end %>

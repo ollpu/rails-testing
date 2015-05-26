@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   
 
-  get 'users/new'
-
   get 'hello_world/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -11,7 +9,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'hello_world#index'
   
-  resources :users
+  resources :users, :sessions
   
   resources :articles do
     resources :comments
