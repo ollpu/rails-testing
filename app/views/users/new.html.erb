@@ -1,6 +1,11 @@
 <h1>Luo käyttäjätili</h1>
 
 <%= form_for @user do |f| %>
+  <ul class="warn">
+    <% @user.errors.each do |attr, msg| %>
+      <%= "<li>#{msg}</li>".html_safe if @user.errors[attr].first == msg %>
+    <% end %>
+  </ul>
   
   <table>
     <tr>

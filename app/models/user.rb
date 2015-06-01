@@ -1,12 +1,20 @@
 class User < ActiveRecord::Base
   
-  attr_accessor :password
+  attr_accessor :password, :password_confirmation
   before_save :encypt_password
   
-  validates_confirmation_of :password
-  validates_presence_of :password, :on => :create, :message => "Salasana vaaditaan!"
-  validates_presence_of :email
-  validates_uniqueness_of :email
+  validates :password_confirmation,
+    presence: { :message => "Vahvista salasana." }
+  validates :password,
+    presence: { :message => "Salasana vaaditaan!" },
+    confirmation: { :on => :create, :message => "Salasanat eivät täsmää." }
+  validates :email,
+    presence: { :message => "Sähköpostiosoite vaaditaan!" },
+    format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create,
+      :message => "Sähköpostiosoite ei kelpaa." },
+    uniqueness: { :message => "Sähköpostiosoite on jo käytössä.", case_sensitive: false }
+  validates :full_name,
+    presence: { :message => "Syötä jokin nimi." }
   
   def encypt_password
     if password.present?
