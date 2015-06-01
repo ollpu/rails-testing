@@ -3,6 +3,14 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
+  def index
+    if current_user && current_user.privileges >= User.priv_level_admin
+      @users = User.all
+    else
+      redirect_to root_url, :notice => "Sinulla ei ole oikeuksia sivulle /users."
+    end
+  end
+  
   def create
     @user = User.new(user_params)
     @user.privileges = @user.priv_level_user

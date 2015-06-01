@@ -31,7 +31,14 @@
   <% if notice.present? %>
     <p class="notice"><%= notice %></p>
   <% end %>
+  
   <%= yield %>
+  <div class="footer">
+    <%=
+      link_to "KÄYTTÄJIEN HALLINTA", users_path if
+        current_user && current_user.privileges >= User.priv_level_admin
+    %>
+  </div>
 </div>
 
 </body>

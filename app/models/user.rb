@@ -14,7 +14,11 @@ class User < ActiveRecord::Base
       :message => "Sähköpostiosoite ei kelpaa." },
     uniqueness: { :message => "Sähköpostiosoite on jo käytössä.", case_sensitive: false }
   validates :full_name,
-    presence: { :message => "Syötä jokin nimi." }
+    presence: { :message => "Syötä jokin nimi." },
+    length: {
+              :maximum => 24,
+              :message => "Koko nimi saa olla enintään 24 merkkiä pitkä."
+            }
   
   def encypt_password
     if password.present?

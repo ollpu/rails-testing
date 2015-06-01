@@ -94,3 +94,10 @@ a {
   text-decoration: none;
   color: blue;
 }
+
+div.footer {
+  margin-top: $contentpadding * 2;
+  position: absolute;
+  font-size: small;
+  padding-bottom: $contentpadding;
+}

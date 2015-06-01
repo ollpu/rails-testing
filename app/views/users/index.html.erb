@@ -1,0 +1,17 @@
+<h1>Käyttäjät</h1>
+<table>
+  <tr>
+    <th>Sähköposti</th>
+    <th>Koko nimi</th>
+    <th>Oikeudet</th>
+  </tr>
+ 
+  <% @users.each do |usr| %>
+    <tr>
+      <td><%= usr.email %></td>
+      <td><%= usr.full_name %></td>
+      <td><%= usr.privileges %></td>
+      <td><%= link_to "Muokkaa", edit_user_path(usr) %>
+    </tr>
+  <% end %>
+</table>
