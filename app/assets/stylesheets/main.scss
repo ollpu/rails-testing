@@ -70,15 +70,24 @@ div.content {
   }
 }
 
-@media (min-width: $contentwidth + $contentpadding*2) {
+@media (min-width: $contentwidth + $contentpadding*4) {
   div.content {
     border-radius: 1rem;
     margin-top: $contentpadding;
     margin-bottom: $contentpadding * 2;
   }
+  
+  div.usrdisplay { margin-bottom: -2.5em; }
 }
 
-
+div.usrdisplay {
+  font-size: small;
+  text-align: right;
+  padding-top: $contentpadding - 0.3rem;
+  a {
+    color: #002550;
+  }
+}
 
 
 a {

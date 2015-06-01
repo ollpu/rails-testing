@@ -1,0 +1,10 @@
+<div class="usrdisplay">
+  <% unless current_user %>
+    <%= link_to "REKISTERÖIDY", sign_up_path %>
+    tai <%= link_to "KIRJAUDU SISÄÄN", log_in_path %>
+  <% else %>
+    <%= current_user.full_name %>
+    &#8226; <%# That's a bullet character %>
+    <%= link_to "KIRJAUDU ULOS", log_out_path %>
+  <% end %>
+</div>

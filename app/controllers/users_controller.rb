@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.privileges = @user.priv_level_user
     if @user.save
-      redirect_to root_url, :notice => "Uusi käyttäjä luotiin!"
+      redirect_to log_in_url, :notice => "Uusi käyttäjä luotiin!"
     else
       render "new"
     end

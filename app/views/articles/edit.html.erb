@@ -1,4 +1,15 @@
-<h1>Muokkaa artikkelia</h1>
-<%= form_for @article do |f| %>
-  <%= render "editform", :f => f %>
+
+<% if current_user && current_user.privileges >= current_user.priv_level_writer %>
+  <%# Logged in & privileged enough to edit an article %>
+  <h1>Muokkaa artikkelia</h1>
+  <%= form_for @article do |f| %>
+    <%= render "editform", :f => f %>
+  <% end %>
+<% else %>
+  <%# Not logged in or not privileged enough to edit an article %>
+  <h1>Seis!</h1>
+  Sinulla ei ole oikeutta muokata artikkeleja.
+  <% unless current_user %>
+    Et ole <%= link_to "kirjautunut sisään", log_in_path %>.
+  <% end %>
 <% end %>

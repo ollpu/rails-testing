@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'hello_world#index'
   
+  get "kirjaudu" => "sessions#new", :as => "log_in"
+  get "kirjaudu/ulos" => "sessions#destroy", :as => "log_out"
+  get "rekisteröidy" => "users#new", :as => "sign_up"
+  
   resources :users, :sessions
   
   resources :articles do
