@@ -15,7 +15,7 @@
   
   <span class="bottom_container">
     <%= article.get_date %>
-    <% if current_user && current_user.privileges >= current_user.priv_level_writer %>
+    <% if current_user && current_user.privileges >= User.priv_level_writer %>
       <%= link_to("MUOKKAA", edit_article_path(article), { class: "action" }) %>
       <%= link_to "POISTA", article_path(article), method: :delete, class: "action",
        data:

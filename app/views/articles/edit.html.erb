@@ -1,5 +1,5 @@
 
-<% if current_user && current_user.privileges >= current_user.priv_level_writer %>
+<% if current_user && current_user.privileges >= User.priv_level_writer %>
   <%# Logged in & privileged enough to edit an article %>
   <h1>Muokkaa artikkelia</h1>
   <%= form_for @article do |f| %>

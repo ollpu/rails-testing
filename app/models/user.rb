@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   end
   
   
-  def priv_level_user;   1 end # Can comment
-  def priv_level_writer; 2 end # Can publish articles
-  def priv_level_admin;  3 end # Can modify other users' information
+  def self.priv_level_user;   1 end # Can comment
+  def self.priv_level_writer; 2 end # Can publish articles
+  def self.priv_level_admin;  3 end # Can modify other users' information
 end

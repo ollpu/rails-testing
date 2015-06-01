@@ -1,0 +1,9 @@
+<% @articles.each do |article| %>
+  <%= render "/articles/render", :article => article, :do_truncation => true %>
+<% end %>
+
+<dataset
+  class="load_more_articles_path"
+  data-load-more-path="<%= @load_more_path %>"
+  <%= 'data-is-cut="true"' if @cut %>
+/>

@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
   end
   
   def update
-    if current_user && current_user.privileges >= current_user.priv_level_writer
+    if current_user && current_user.privileges >= User.priv_level_writer
       @article = Article.find(params[:id])
       @article.update article_params
       redirect_to @article
@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
   end
   
   def create
-    if current_user && current_user.privileges >= current_user.priv_level_writer
+    if current_user && current_user.privileges >= User.priv_level_writer
       @article = Article.new(article_params)
       
       @article.save
@@ -28,23 +28,35 @@ class ArticlesController < ApplicationController
     end
   end
   
+  @@max_articles = 8
+  
   def index
-    #= Needs some ajax magic
-    # max_articles = 8
-    # @articles = Article.order(created_at: :desc).limit(max_articles)
-    # # true if articles clipped off
-    # @cut = Article.count > max_articles
-    #=
-    @articles = Article.order(created_at: :desc)
+    @articles = Article.order(created_at: :desc).limit(@@max_articles)
+    @depth = @@max_articles
+    # true if articles clipped off
+    @cut = Article.count > @depth
   end
   
   def destroy
-    if current_user && current_user.privileges >= current_user.priv_level_writer
+    if current_user && current_user.privileges >= User.priv_level_writer
       @article = Article.find(params[:id])
       @article.destroy
       redirect_to articles_path
     else
       not_privileged
+    end
+  end
+  
+  def more
+    old_depth = params[:depth].to_i
+    new_depth = old_depth + @@max_articles
+    
+    @articles = Article.order(created_at: :desc).offset(old_depth).limit(@@max_articles)
+    @cut = Article.count > new_depth
+    @load_more_path = articles_more_url(:depth => new_depth)
+    
+    respond_to do |format|
+      format.html { render :partial => "more" }
     end
   end
   

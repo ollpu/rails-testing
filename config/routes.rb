@@ -15,9 +15,12 @@ Rails.application.routes.draw do
   
   resources :users, :sessions
   
+  get "articles/more" => "articles#more", :as => "articles_more"
   resources :articles do
     resources :comments
   end
+  
+  
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
