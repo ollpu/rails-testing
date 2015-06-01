@@ -46,3 +46,5 @@ group :development, :test do
 end
 
 gem 'google-webfonts-rails'
+
+gem 'github-markdown'
