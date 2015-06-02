@@ -7,7 +7,7 @@
 development:
   adapter: sqlite3
   encoding: utf8
-  database: project_development
+  database: db/development.sqlite3
   username:
   password:
 
