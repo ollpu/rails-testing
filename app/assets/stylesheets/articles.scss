@@ -9,7 +9,7 @@ span.article {
     color: black;
   }
   
-  p.text {
+  p {
     text-align: justify;
     white-space: pre-line;
   }
@@ -53,6 +53,13 @@ a.action {
   font-size: small;
   margin: 0 6px;
   padding-bottom: 12px;
+  text-transform: uppercase;
+}
+
+a.load_more_articles {
+  display: block;
+  text-align: center;
+  border: 1px solid gray;
 }
 
 span.bottom_container {

@@ -14,5 +14,5 @@
 
 <% if current_user && current_user.privileges >= User.priv_level_writer %>
   <br/><br/>
-  <%= link_to "LUO UUSI ARTIKKELI", new_article_path, { class: "action" } %>
+  <%= link_to "Luo uusi artikkeli", new_article_path, { class: "action" } %>
 <% end %>
