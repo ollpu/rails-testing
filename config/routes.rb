@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   end
   
   
+  get 'telegram' => 'telegram#index'
+  
+  
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
