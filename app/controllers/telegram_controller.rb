@@ -118,7 +118,7 @@ class TelegramController < ApplicationController
   end
   
   def telegram_rel_user(sender)
-    @telegram_rel_user ||= User.find_by telegram_user: sender
+    User.find_by telegram_user: sender
   end
   
   def telegram_params
