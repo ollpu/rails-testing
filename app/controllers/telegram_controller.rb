@@ -11,7 +11,7 @@ class TelegramController < ApplicationController
   private
   def send_message (chat_id, text = "", web_preview = true, reply_id = nil, reply_markup = nil)
     if chat_id.present?
-      uri = URI.parse("https://api.telegram.org/bot#{Config.tgbot_api_key}/sendMessage")
+      uri = URI.parse("https://api.telegram.org/bot#{ENV["TELEGRAM_BOT_API_KEY"]}/sendMessage")
       response = Net::HTTP.post_form(uri,
         {
           :chat_id => chat_id,

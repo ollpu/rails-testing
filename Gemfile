@@ -48,5 +48,3 @@ end
 gem 'google-webfonts-rails'
 
 gem 'github-markdown'
-
-gem 'settingslogic'
