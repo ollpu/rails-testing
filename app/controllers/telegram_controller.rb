@@ -85,7 +85,7 @@ class TelegramController < ApplicationController
     when "echo"
       to_return[:text] = params
     when "articles"
-      if telegram_rel_user sender
+      if telegram_rel_user(sender).present?
         case params_arr[0].first
         when "count"
           amount = pluralize Article.count, 'artikkeli', 'artikkelia'
