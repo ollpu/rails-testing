@@ -6,9 +6,11 @@ class TelegramController < ApplicationController
   protect_from_forgery with: :null_session
   
   def index
-    message = params[:message]
+    message = telegram_params[:message]
     if message.present?
       successful = send_message message[:chat][:id], parse_command(message[:text])
+      # successful = message
+      # successful = { :id => message[:chat][:id], :text => parse_command(message[:text]) }
     else successful = false end
       
     render :json => {:ok => successful}
@@ -34,10 +36,22 @@ class TelegramController < ApplicationController
   end
   
   def parse_command (text)
-    params = text[/^\/\w (.*)$/, 0]
-    case text[/^\/(\w)/, 0]
+    params = text[/^\/[\w]+ (.+)$/, 1]
+    case text[/^\/([\w]+)/, 1]
     when "echo"
       return params
     end
+  end
+  
+  
+  def telegram_params
+    params.require(:telegram)
+      .permit(
+        :update_id,
+        message: [
+          :text,
+          :chat => [:id]
+        ]
+      )
   end
 end
