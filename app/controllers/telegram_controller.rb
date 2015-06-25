@@ -3,6 +3,8 @@ require "uri"
 
 
 class TelegramController < ApplicationController
+  protect_from_forgery with: :null_session
+  
   def index
     successful = send_message 50886815, params
     render :json => {:ok => successful}
