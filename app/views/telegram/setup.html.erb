@@ -1,0 +1,9 @@
+<h2>Yhdistä Telegram-bottiin</h2>
+
+<% if current_user.telegram_user %>
+  Tämä tili on jo yhdistetty Telegramiin.
+  Voit alkaa chatata <%= link_to 'botin', 'http://telegram.me/ollpus_test_bot' %> kanssa!
+  <br/><%= link_to 'Pura yhteys', telegram_disconnect_path %>
+<% else %>
+  <%= link_to 'Luo uusi yhdiste', telegram_connect_path %>
+<% end %>

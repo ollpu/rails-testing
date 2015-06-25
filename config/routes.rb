@@ -22,7 +22,9 @@ Rails.application.routes.draw do
   
   
   match 'telegram' => 'telegram#index', via: [:get, :post]
-  
+  get 'telegram/setup' => 'telegram#setup'
+  get 'telegram/connect' => 'telegram#connect'
+  get 'telegram/disconnect' => 'telegram#disconnect'
   
   
   

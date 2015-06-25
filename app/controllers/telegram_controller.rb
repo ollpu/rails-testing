@@ -1,10 +1,36 @@
 require "net/http"
 require "uri"
+require "securerandom"
 include ActionView::Helpers::TextHelper
 
 
 class TelegramController < ApplicationController
   protect_from_forgery with: :null_session
+  
+  def setup
+    unless current_user
+      not_privileged
+    end
+  end
+  
+  def connect
+    if current_user
+      @key = SecureRandom.urlsafe_base64(32)
+      Rails.cache.write("telegram_link:#{@key}", current_user.email, expires_in: 1.hours)
+    else
+      not_privileged
+    end
+  end
+  
+  def disconnect
+    if current_user
+      current_user.telegram_user = nil
+      current_user.save
+      redirect_to telegram_setup_path, :notice => "Yhteys purettiin onnistuneesti."
+    else
+      not_privileged
+    end
+  end
   
   def index
     message = telegram_params[:message]
@@ -45,25 +71,40 @@ class TelegramController < ApplicationController
     params = text[/^\/[\w]+ (.+)$/, 1]
     params_arr = text.scan(/ ([^ ]+)/)
     case text[/^\/([\w]+)/, 1]
+    when "start"
+      key = Rails.cache.read("telegram_link:#{params_arr[0].first}")
+      Rails.cache.delete("telegram_link:#{params_arr[0].first}")
+      if key
+        user = User.find_by email: key
+        if user and not user.telegram_user.present?
+          user.telegram_user = sender
+          user.save
+          to_return[:text] = "Tämä Telegram-tili on nyt yhdistetty tiliin #{user.email}!"
+        end
+      end
     when "echo"
       to_return[:text] = params
     when "articles"
-      case params_arr[0].first
-      when "count"
-        amount = pluralize Article.count, 'artikkeli', 'artikkelia'
-        to_return[:text] = "Sivustolla on yhteensä #{amount}."
-      when "list"
-        toReturn = "Käytä /article read [luku] lukeaksesi artikkelin.\n\n"
-        Article.all.each do |article|
-          toReturn <<= "#{article.id}: #{article.title}\n"
+      if telegram_rel_user sender
+        case params_arr[0].first
+        when "count"
+          amount = pluralize Article.count, 'artikkeli', 'artikkelia'
+          to_return[:text] = "Sivustolla on yhteensä #{amount}."
+        when "list"
+          toReturn = "Käytä /article read [luku] lukeaksesi artikkelin.\n\n"
+          Article.all.each do |article|
+            toReturn <<= "#{article.id}: #{article.title}\n"
+          end
+          to_return[:text] = toReturn
+        when "read"
+          id = params_arr[1].first.to_i
+          to_return[:text] = Article.exists?(id) ?
+            "Voit lukea artikkelin osoitteessa #{article_url(id)}."
+            : "Kyseinen artikkeli ei ole olemassa!"
+          to_return[:response] = true
         end
-        to_return[:text] = toReturn
-      when "read"
-        id = params_arr[1].first.to_i
-        to_return[:text] = Article.exists?(id) ?
-          "Voit lukea artikkelin osoitteessa #{article_url(id)}."
-          : "Kyseinen artikkeli ei ole olemassa!"
-        to_return[:response] = true
+      else
+        to_return[:text] = "Ei oikeutta. // Not authorized."
       end
     when "users"
       case params_arr[0].first
@@ -76,6 +117,9 @@ class TelegramController < ApplicationController
     to_return
   end
   
+  def telegram_rel_user(sender)
+    @telegram_rel_user ||= User.find_by telegram_user: sender
+  end
   
   def telegram_params
     params.require(:telegram)
@@ -88,5 +132,9 @@ class TelegramController < ApplicationController
           :from => [:id]
         ]
       )
+  end
+  
+  def not_privileged
+    redirect_to root_url, :notice => "Sinulla ei ole oikeutta tehdä tätä."
   end
 end
