@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   end
   
   
-  get 'telegram' => 'telegram#index'
+  match 'telegram' => 'telegram#index', via: [:get, :post]
+  
   
   
   
