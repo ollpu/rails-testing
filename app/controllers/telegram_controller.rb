@@ -1,5 +1,6 @@
 require "net/http"
 require "uri"
+include ActionView::Helpers::TextHelper
 
 
 class TelegramController < ApplicationController
@@ -8,9 +9,12 @@ class TelegramController < ApplicationController
   def index
     message = telegram_params[:message]
     if message.present?
-      successful = send_message message[:chat][:id], parse_command(message[:text])
-      # successful = message
-      # successful = { :id => message[:chat][:id], :text => parse_command(message[:text]) }
+      # Prepare response
+      response_msg = parse_command(message[:text], message[:from][:id])
+      # Determine id of reply
+      reply_id = response_msg[:reply] ? message[:message_id] : nil
+      # Send message
+      successful = send_message message[:chat][:id], response_msg[:text], true, reply_id
     else successful = false end
       
     render :json => {:ok => successful}
@@ -35,12 +39,41 @@ class TelegramController < ApplicationController
     end
   end
   
-  def parse_command (text)
+  def parse_command (text, sender)
+    to_return = {:response => false}
+    
     params = text[/^\/[\w]+ (.+)$/, 1]
+    params_arr = text.scan(/ ([^ ]+)/)
     case text[/^\/([\w]+)/, 1]
     when "echo"
-      return params
+      to_return[:text] = params
+    when "articles"
+      case params_arr[0].first
+      when "count"
+        amount = pluralize Article.count, 'artikkeli', 'artikkelia'
+        to_return[:text] = "Sivustolla on yhteensä #{amount}."
+      when "list"
+        toReturn = "Käytä /article read [luku] lukeaksesi artikkelin.\n\n"
+        Article.all.each do |article|
+          toReturn <<= "#{article.id}: #{article.title}\n"
+        end
+        to_return[:text] = toReturn
+      when "read"
+        id = params_arr[1].first.to_i
+        to_return[:text] = Article.exists?(id) ?
+          "Voit lukea artikkelin osoitteessa #{article_url(id)}."
+          : "Kyseinen artikkeli ei ole olemassa!"
+        to_return[:response] = true
+      end
+    when "users"
+      case params_arr[0].first
+      when "count"
+        amount = pluralize User.count, 'käyttäjä', 'käyttäjää'
+        to_return[:text] = "Sivustolla on yhteensä #{amount}."
+      end
     end
+    
+    to_return
   end
   
   
@@ -49,8 +82,10 @@ class TelegramController < ApplicationController
       .permit(
         :update_id,
         message: [
+          :message_id,
           :text,
-          :chat => [:id]
+          :chat => [:id],
+          :from => [:id]
         ]
       )
   end
