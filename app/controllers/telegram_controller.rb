@@ -81,6 +81,8 @@ class TelegramController < ApplicationController
           user.save
           to_return[:text] = "Tämä Telegram-tili (#{sender}) on nyt yhdistetty tiliin #{user.email}!"
         end
+      else
+        to_return[:text] = "Kelpaamaton avain. // Invalid token."
       end
     when "echo"
       to_return[:text] = params
