@@ -32,17 +32,44 @@ class TelegramController < ApplicationController
     end
   end
   
+  # Reconnects to Telegram Bot API
+  def repair
+    if current_user && current_user.privileges >= User.priv_level_admin
+      # Clear webhook so that getUpdates can be used
+      uri = URI.parse("https://api.telegram.org/bot#{ENV["TELEGRAM_BOT_API_KEY"]}/setWebhook")
+      Net::HTTP.post_form(uri,{})
+      # Mark all messages as read
+      uri = URI.parse("https://api.telegram.org/bot#{ENV["TELEGRAM_BOT_API_KEY"]}/getUpdates")
+      Net::HTTP.post_form(uri,{
+        :offset => 2147483647
+      })
+      # Reconfigure webhook
+      uri = URI.parse("https://api.telegram.org/bot#{ENV["TELEGRAM_BOT_API_KEY"]}/setWebhook")
+      Net::HTTP.post_form(uri,{
+        :url => telegram_url
+      })
+      Rails.cache.delete('bot_command')
+      render :json => {:ok => true}
+    else not_privileged end
+  end
+  
   def index
-    message = telegram_params[:message]
-    if message.present?
-      # Prepare response
-      response_msg = parse_command(message[:text], message[:from][:id])
-      # Determine id of reply
-      reply_id = response_msg[:reply] ? message[:message_id] : nil
-      # Send message
-      successful = send_message message[:chat][:id], response_msg[:text], true, reply_id
-    else successful = false end
-      
+    update_id = telegram_params[:update_id]
+    last_update_id = Rails.cache.read("bot_command")
+    # If last_update_id == nil then true, otherwise check validitygit
+    if last_update_id.present? ? last_update_id + 1 == update_id : true
+      Rails.cache.write("bot_command", update_id)
+      message = telegram_params[:message]
+      if message.present?
+        # Prepare response
+        response_msg = parse_command(message[:text], message[:from][:id])
+        # Determine id of reply
+        reply_id = response_msg[:reply] ? message[:message_id] : nil
+        # Send message
+        successful = send_message message[:chat][:id], response_msg[:text], true, reply_id
+      else successful = false end
+    else not_privileged end
+    
     render :json => {:ok => successful}
   end
   

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get 'telegram/setup' => 'telegram#setup'
   get 'telegram/connect' => 'telegram#connect'
   get 'telegram/disconnect' => 'telegram#disconnect'
+  get 'telegram/repair' => 'telegram#repair'
   
   
   
