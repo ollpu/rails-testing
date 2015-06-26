@@ -72,17 +72,19 @@ class TelegramController < ApplicationController
     params_arr = text.scan(/ ([^ ]+)/)
     case text[/^\/([\w]+)/, 1]
     when "start"
-      key = Rails.cache.read("telegram_link:#{params_arr[0].first}")
-      Rails.cache.delete("telegram_link:#{params_arr[0].first}")
-      if key
-        user = User.find_by email: key
-        if user and not user.telegram_user.present?
-          user.telegram_user = sender
-          user.save
-          to_return[:text] = "Tämä Telegram-tili (#{sender}) on nyt yhdistetty tiliin #{user.email}!"
+      if params_arr[0].present? and params_arr[0].first.present?
+        key = Rails.cache.read("telegram_link:#{params_arr[0].first}")
+        Rails.cache.delete("telegram_link:#{params_arr[0].first}")
+        if key
+          user = User.find_by email: key
+          if user and not user.telegram_user.present?
+            user.telegram_user = sender
+            user.save
+            to_return[:text] = "Tämä Telegram-tili (#{sender}) on nyt yhdistetty tiliin #{user.email}!"
+          end
+        else
+          to_return[:text] = "Kelpaamaton avain. // Invalid token."
         end
-      else
-        to_return[:text] = "Kelpaamaton avain. // Invalid token."
       end
     when "echo"
       to_return[:text] = params
