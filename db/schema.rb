@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626083358) do
+ActiveRecord::Schema.define(version: 20150626084040) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -33,9 +33,9 @@ ActiveRecord::Schema.define(version: 20150626083358) do
     t.string   "password_hash"
     t.string   "password_salt"
     t.integer  "privileges"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.boolean  "telegram_user", default: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "telegram_user"
   end
 
 end
