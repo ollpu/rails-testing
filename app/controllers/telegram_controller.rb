@@ -79,7 +79,7 @@ class TelegramController < ApplicationController
         if user and not user.telegram_user.present?
           user.telegram_user = sender
           user.save
-          to_return[:text] = "Tämä Telegram-tili on nyt yhdistetty tiliin #{user.email}!"
+          to_return[:text] = "Tämä Telegram-tili (#{sender}) on nyt yhdistetty tiliin #{user.email}!"
         end
       end
     when "echo"

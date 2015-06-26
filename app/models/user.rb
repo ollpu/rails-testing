@@ -4,10 +4,12 @@ class User < ActiveRecord::Base
   before_save :encypt_password
   
   validates :password_confirmation,
-    presence: { :message => "Vahvista salasana." }
+    presence: { :message => "Vahvista salasana." },
+    on: :new
   validates :password,
     presence: { :message => "Salasana vaaditaan!" },
-    confirmation: { :on => :create, :message => "Salasanat eivät täsmää." }
+    confirmation: { :on => :create, :message => "Salasanat eivät täsmää." },
+    on: :new
   validates :email,
     presence: { :message => "Sähköpostiosoite vaaditaan!" },
     format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create,
